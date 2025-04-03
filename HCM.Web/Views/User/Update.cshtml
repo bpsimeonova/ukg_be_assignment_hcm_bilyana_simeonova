@@ -1,0 +1,113 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model UserViewModel
+
+<div class="w-100 card border-0 p-4">
+    <div class="card-header bg-success bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                @if (User.IsInRole(Roles.Admin))
+                {
+                    <h2 class="text-white py-2">Update HR</h2>
+                }
+                else
+                {
+                    <h2 class="text-white py-2">Update Employee</h2>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="card-body border p-4">
+        <form method="post" class="row">
+            <input asp-for="Id" hidden />
+            <div class="p-3">
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="FirstName" class="form-control border shadow" />
+                    <label asp-for="FirstName" class="ms-2">First Name</label>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="LastName" class="form-control border shadow" />
+                    <label asp-for="LastName" class="ms-2">Last Name</label>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <select id="JobTitleId" asp-for="JobTitleId" class="form-select border shadow" asp-items="Model.JobTitles">
+                        <option disabled selected>--Select Job Title--</option>
+                    </select>
+                    <label asp-for="JobTitleId" class="ms-2">Job Title</label>
+                    <span asp-validation-for="JobTitleId" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="HireDate" type="date" class="form-control border shadow" />
+                    <label asp-for="HireDate" class="ms-2">Hire Date</label>
+                    <span asp-validation-for="HireDate" class="text-danger"></span>
+                </div>
+                @if (User.IsInRole(Roles.HR))
+                {
+                    <div class="form-floating py-1 col-12">
+                        <select id="SelectedEmploymentStatus" asp-for="SelectedEmploymentStatus" class="form-select border shadow" asp-items="@(new SelectList(Model.EmploymentStatuses))">
+                            <option disabled selected>--Select Employment Status--</option>
+                        </select>
+                        <label asp-for="SelectedEmploymentStatus" class="ms-2">Employment Status</label>
+                        <span asp-validation-for="SelectedEmploymentStatus" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="TerminationDate" type="date" class="form-control border shadow" />
+                        <label asp-for="TerminationDate" class="ms-2">Termination Date</label>
+                        <span asp-validation-for="TerminationDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="TerminationReason" class="form-control border shadow" />
+                        <label asp-for="TerminationReason" class="ms-2">Termination Reason</label>
+                        <span asp-validation-for="TerminationReason" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-floating py-1 col-12">
+                    <select id="ManagerId" asp-for="ManagerId" class="form-select border shadow" asp-items="Model.Managers">
+                        <option disabled selected>--Select Manager--</option>
+                    </select>
+                    <label asp-for="ManagerId" class="ms-2">Manager</label>
+                    <span asp-validation-for="ManagerId" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="EntitledPaidLeaveDays" type="number" class="form-control border shadow" />
+                    <label asp-for="EntitledPaidLeaveDays" class="ms-2">Entitled Paid Leave Days</label>
+                    <span asp-validation-for="EntitledPaidLeaveDays" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="AvailablePaidLeaveDays" type="number" class="form-control border shadow" />
+                    <label asp-for="AvailablePaidLeaveDays" class="ms-2">Available Paid Leave Days</label>
+                    <span asp-validation-for="AvailablePaidLeaveDays" class="text-danger"></span>
+                </div>
+                <div class="row pt-5">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="bi bi-check-circle"></i> Update
+                        </button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        @if (User.IsInRole(Roles.Admin))
+                        {
+                            <a asp-controller="User" asp-action="HRIndex" class="btn btn-secondary w-100">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="User" asp-action="Index" class="btn btn-secondary w-100">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -1,0 +1,8 @@
+﻿@if (User?.Identity != null && User.Identity.IsAuthenticated)
+{
+    Layout = "_LoggedInLayout";
+}
+else
+{
+    Layout = "_LoggedOutLayout";
+}

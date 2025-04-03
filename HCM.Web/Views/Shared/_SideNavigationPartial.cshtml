@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+    <div class="position-static pt-3">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
+                    <span class="me-2"><i class="bi bi-house-door-fill"></i></span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            @if (User.IsInRole(Roles.Admin))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="User" asp-action="HRIndex">
+                        <span class="me-2"><i class="bi bi-rocket-takeoff-fill"></i></span>
+                        <span>HR</span>
+                    </a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="User" asp-action="Index">
+                    <span class="me-2"><i class="bi bi-people-fill"></i></span>
+                    <span>Employees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Leave" asp-action="Index">
+                    <span class="me-2"><i class="bi bi-umbrella-fill"></i></span>
+                    <span>Leaves</span>
+                </a>
+            </li>
+            @if (User.IsInRole(Roles.Manager))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Leave" asp-action="RequestIndex">
+                        <span class="me-2"><i class="bi bi-stack"></i></span>
+                        <span>Leave Requests</span>
+                    </a>
+                </li>
+            }
+			@if (User.IsInRole(Roles.HR))
+			{
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="JobTitle" asp-action="Index">
+                        <span class="me-2"><i class="bi bi-pass-fill"></i></span>
+                        <span>Job Titles</span>
+                    </a>
+                </li>
+			}
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Profile" asp-action="Update">
+                    <span class="me-2"><i class="bi bi-person-fill"></i></span>
+                    <span>My Profile</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

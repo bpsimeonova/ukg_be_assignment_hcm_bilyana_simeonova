@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Leave>
+
+<div class="w-100 card border-0 p-4">
+    <div class="card-header bg-success bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Leave Request List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body border p-4">
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Total Days</th>
+                        <th>Leave Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.User.FirstName @item.User.LastName</td>
+                            <td>@item.StartDate.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                            <td>@item.EndDate.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                            <td>@item.TotalDays</td>
+                            <td>@item.LeaveType</td>
+                            <td>
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Leave" asp-action="ApproveRequest" asp-route-leaveId="@item.Id"
+                                    class="btn btn-success mx-2">
+                                        <i class="bi bi-check-circle"></i> Approve
+                                    </a>
+                                    <a asp-controller="Leave" asp-action="RejectRequest" asp-route-leaveId="@item.Id"
+                                    class="btn btn-danger mx-2">
+                                        <i class="bi bi-x-circle"></i> Reject
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="text-center">No pending leave requests</div>
+        }
+    </div>
+</div>
